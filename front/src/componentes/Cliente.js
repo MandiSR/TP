@@ -12,29 +12,8 @@ function Cliente() {
   const [clienteList, setClienteList] = useState([]);
   const [visible, setVisible] = useState(false);
 
-<<<<<<< Updated upstream
   useEffect(() => {
     const fetchClientes = async () => {
-=======
-
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const clientData = {
-      id: id,
-      nombre: nombre,
-      cuit: cuit,
-    };
-  
-    if (editMode) {
-      const updatedList = clienteList.map((item, index) =>
-        index === editingIndex ? clientData : item
-      );
-      setClienteList(updatedList);
-      setEditMode(false);
-      setEditingIndex(null);
-    } else {
->>>>>>> Stashed changes
       try {
         const response = await axios.get("http://localhost:3001/api/cliente/usuarios");
         setClienteList(response.data);
@@ -107,40 +86,9 @@ function Cliente() {
     setCuit("");
   };
 
-<<<<<<< Updated upstream
   return (
     <div>
       <div className="card bg-dark border-dark mb-3">
-=======
- 
-  const [clienteList, setClienteList] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch(
-        "http://localhost:3001/api/cliente/usuarios"
-      );
-      const data = await response.json();
-      setClienteList(data);
-    };
-    fetchData();
-  }, []);
-
-  const eliminarCliente = (id) => {
-    axios
-      .delete(`http://localhost:3001/api/cliente/eliminar/${id}`)
-      .then(() => {
-        setClienteList(
-            clienteList.filter((cliente) => cliente.id !== id)
-        );
-      });
-    };
-    
-
-    return(
-        <div>
-            <div className="card bg-dark border-dark mb-3">
->>>>>>> Stashed changes
         <div className="card-header">
           <h2 className="text-center bg-dark p-2 text-warning">Datos de los Clientes</h2>
         </div>

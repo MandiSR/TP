@@ -1,5 +1,6 @@
 const path = require("path")
 const connection= require ("../connectDB/dBconnection")
+const Producto = require('../models/Producto');
 const fs= require('fs')
 
 

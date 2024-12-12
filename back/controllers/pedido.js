@@ -1,4 +1,5 @@
-const connection = require("../connectDB/dBconnection");
+const { connection, sequelize } = require("../connectDB/dBconnection");
+const Pedido = require('../models/Pedido');
 
 
 function getAllPedidos(req, res) {

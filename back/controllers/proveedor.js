@@ -1,4 +1,5 @@
 const connection= require ("../connectDB/dBconnection")
+const Proovedor = require('../models/Proovedor');
 
 function getAllProveedores(req,res){
     const query = "SELECT * FROM proveedor";

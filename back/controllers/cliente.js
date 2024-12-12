@@ -1,4 +1,5 @@
 const connection= require ("../connectDB/dBconnection")
+const Producto = require('../models/Cliente');
 
 function getAllClientes(req,res){
     const query = "SELECT * from cliente"

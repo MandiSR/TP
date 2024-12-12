@@ -4,10 +4,7 @@ const cors = require('cors');
 
 app.use(cors());
 
-
-
 app.use(express.json());
-
 
 const proveedorroutes= require('./routes/proveedorRoute');
 const clienteroutes= require('./routes/clienteRoute');
