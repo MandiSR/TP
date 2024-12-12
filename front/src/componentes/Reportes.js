@@ -3,16 +3,16 @@ import { Bar } from "react-chartjs-2";
 import axios from "axios";
 import { Chart, registerables } from "chart.js";
 
-// Registramos todos los componentes de Chart.js necesarios
+
 Chart.register(...registerables);
 
 const Reportes = () => {
   const [chartData, setChartData] = useState({
     precios: { labels: [], datasets: [] },
-    proveedores: { labels: [], datasets: [] }, // Nuevo estado para proveedores
+    proveedores: { labels: [], datasets: [] }, 
   });
 
-  // Obtener productos y precios
+  
   const obtenerProductos = async () => {
     try {
       const response = await axios.get("http://localhost:3001/api/producto/el-producto");
@@ -22,7 +22,7 @@ const Reportes = () => {
       const preciosCompra = productos.map((producto) => producto.precioCompra);
       const preciosVenta = productos.map((producto) => producto.precioVenta);
 
-      // Actualizamos los datos de precios en el estado
+      
       setChartData((prevData) => ({
         ...prevData,
         precios: {
@@ -31,7 +31,7 @@ const Reportes = () => {
             {
               label: "Precio de Compra",
               data: preciosCompra,
-              backgroundColor: "rgba(255, 255, 255, 0.6)", // Color blanco
+              backgroundColor: "rgba(255, 255, 255, 0.6)", 
             },
             {
               label: "Precio de Venta",
@@ -51,17 +51,17 @@ const Reportes = () => {
       const response = await axios.get("http://localhost:3001/api/producto/el-producto");
       const productos = response.data;
   
-      // Contabilizamos por proveedor
+      
       const proveedoresCount = productos.reduce((acc, producto) => {
         acc[producto.proveedor] = (acc[producto.proveedor] || 0) + 1;
         return acc;
       }, {});
   
-      // Extraemos los labels y datasets para el gráfico
+      
       const labels = Object.keys(proveedoresCount);
       const cantidades = Object.values(proveedoresCount);
   
-      // Actualizamos el estado de proveedores
+      
       setChartData((prevData) => ({
         ...prevData,
         proveedores: {
@@ -87,7 +87,7 @@ const Reportes = () => {
   }, []); 
   return (
     <div>
-      {/* Gráfico de Precios de Productos */}
+      
       <div className="card bg-dark border-dark mb-4">
         <div className="card-header">
           <h3 className="text-center bg-dark p-2 text-warning">Precios de Productos</h3>
@@ -105,7 +105,7 @@ const Reportes = () => {
           />
         </div>
       </div>
-    {/* Gráfico de Proveedores Más Utilizados */}
+    
     <div className="card bg-dark border-dark mb-4">
       <div className="card-header">
         <h3 className="text-center bg-dark p-2 text-warning">

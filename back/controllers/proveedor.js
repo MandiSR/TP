@@ -22,7 +22,7 @@ function createProveedor(req,res) {
             console.error(err)
             res.status(500).send("Error, no se pudo insertar el proveedor")
         } else{
-            res.status(201).json(result); // 201 indica que el recurso se creó con éxito
+            res.status(201).json(result); 
         }
     });
 }

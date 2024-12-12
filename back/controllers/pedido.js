@@ -1,6 +1,6 @@
 const connection = require("../connectDB/dBconnection");
 
-// Función para obtener todos los pedidos
+
 function getAllPedidos(req, res) {
     const query = `
         SELECT p.id, p.fechaCreacion, p.saldoTotal, p.cantidad, 
@@ -20,16 +20,16 @@ function getAllPedidos(req, res) {
     });
 }
 
-// Crear un nuevo pedido con un solo producto
+
 function createPedido(req, res) {
     const { clienteId, saldoTotal, fechaCreacion, productoId, cantidad } = req.body;
 
-    // Validación de entrada
+   
     if (!clienteId || !saldoTotal || !productoId || cantidad <= 0) {
         return res.status(400).json({ error: "Faltan campos requeridos." });
     }
 
-    // Insertar el pedido principal
+    
     const query = "INSERT INTO pedido (clienteId, saldoTotal, fechaCreacion, productoId, cantidad) VALUES (?, ?, ?, ?, ?)";
     connection.query(query, [clienteId, saldoTotal, fechaCreacion, productoId, cantidad], (err, result) => {
         if (err) {
@@ -41,17 +41,16 @@ function createPedido(req, res) {
     });
 }
 
-// Actualizar un pedido con un solo producto
+
 function updatePedido(req, res) {
     const id = req.params.id;
     const { clienteId, saldoTotal, fechaCreacion, productoId, cantidad } = req.body;
 
-    // Validación de entrada
+  
     if (!clienteId || !saldoTotal || !productoId || cantidad <= 0) {
         return res.status(400).json({ error: "Faltan campos requeridos." });
     }
 
-    // Actualizar el pedido
     const query = "UPDATE pedido SET clienteId = ?, saldoTotal = ?, fechaCreacion = ?, productoId = ?, cantidad = ? WHERE id = ?";
     connection.query(query, [clienteId, saldoTotal, fechaCreacion, productoId, cantidad, id], (err) => {
         if (err) {
@@ -63,7 +62,7 @@ function updatePedido(req, res) {
     });
 }
 
-// Eliminar un pedido
+
 function deletePedido(req, res) {
     const id = req.params.id;
 

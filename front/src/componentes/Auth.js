@@ -6,6 +6,7 @@ import  '../componentes/estilos.css';
 
 export const Auth = () => {
   const navigate = useNavigate();
+  
 
   useEffect(() => {
     const token = localStorage.getItem("firebaseToken");
@@ -19,6 +20,8 @@ export const Auth = () => {
     try {
       const a = await signInWithPopup(auth, googleProvider);
       localStorage.setItem("firebaseToken", a._tokenResponse.idToken);
+
+      
 
       navigate("/protected");
     } catch (error) {
@@ -42,13 +45,6 @@ export const Auth = () => {
         </button>
       </div>
    
-    // <div className="auth card text-center">
-    //   <div className="card-body position-absolute top-50 start-50 translate-middle">
-    //     <button onClick={signInWithGoogle}>Sign in with Google</button>
-
-    //     <button onClick={logout}>Log out</button>
-    //   </div>
-    // </div>
   );
 };
 

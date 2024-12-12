@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { Card } from "primereact/card";
 import { Button } from "primereact/button";
-import { useNavigate } from "react-router-dom"; // Importar el hook useNavigate
+import { useNavigate } from "react-router-dom"; 
 import axios from "axios";
 
 const API_BASE_URL = "http://localhost:3001/api";
 
 function CatalogoProducto() {
+  
   const [catalogoList, setCatalogoList] = useState([]);
-  const navigate = useNavigate(); // Crear el hook navigate
+  const navigate = useNavigate(); 
 
   const fetchProductos = async () => {
+
     try {
       const response = await axios.get(`${API_BASE_URL}/producto/el-producto`);
       console.log(response.data);
@@ -24,9 +26,9 @@ function CatalogoProducto() {
     fetchProductos();
   }, []);
 
-  // Función para manejar la redirección al formulario de pedido
+  
   const irAPedido = () => {
-    navigate("/pedido"); // Redirigir a la página de pedidos
+    navigate("/pedido"); 
   };
 
   return (
@@ -43,7 +45,7 @@ function CatalogoProducto() {
                     label="Pedir"
                     className="btn btn-warning m-2"
                     icon="pi pi-check"
-                    onClick={irAPedido} // Acción para redirigir a la página de pedidos
+                    onClick={irAPedido} 
                   />
                 </>
               }
