@@ -12,7 +12,7 @@ export const Auth = () => {
     const token = localStorage.getItem("firebaseToken");
 
     if (token) {
-      navigate("/protected/");
+      navigate("/protected");
     }
   },  []);
 
