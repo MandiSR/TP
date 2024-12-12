@@ -51,7 +51,7 @@ function CatalogoProducto() {
               }
               header={
                 <img
-                  src={`https://tp-production-3bfb.up.railway.app/api/uploads/${item.fotoProducto}`}
+                  src={`https://tp-production-3bfb.up.railway.app/uploads/${item.fotoProducto}`}
                   alt={item.nombre}
                   style={{
                     width: "100%",
