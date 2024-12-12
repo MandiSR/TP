@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
+import '../componentes/estilos.css';
 
 function Pedido() {
   const [id, setId] = useState("");
@@ -126,7 +127,7 @@ function Pedido() {
             </div>
 
             <div className="input-group mb-3 bg-dark p-2 text-white bg-opacity-75">
-              <span className="label input-group-text">Fecha</span>
+              <span className="label input-group-text bg-dark p-2 text-white">Fecha</span>
               <input
                 type="date"
                 className="form-control"
@@ -154,7 +155,7 @@ function Pedido() {
             </div>
 
             <div className="input-group mb-3 bg-dark p-2 text-white bg-opacity-75">
-              <span className="label input-group-text">Cantidad</span>
+              <span className="label input-group-text bg-dark p-2 text-white">Cantidad</span>
               <input
                 type="number"
                 className="form-control"
@@ -182,7 +183,7 @@ function Pedido() {
               <th>Fecha</th>
               <th>Producto</th>
               <th>Total</th>
-              <th>Acciones</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -195,10 +196,10 @@ function Pedido() {
                 <td>{pedido.saldoTotal}€</td>
                 <td>
                   <Button
-                    label="Ver"
+                    label="Editar"
                     icon="pi pi-pencil"
                     onClick={() => handleEdit(pedido)}
-                    className="p-button-warning"
+                    className="btn btn-dark m-2"
                   />
                 </td>
               </tr>
@@ -208,8 +209,8 @@ function Pedido() {
       </div>
 
       <Dialog
-        className="dialog"
-        header="Editar Pedido"
+        className="dialog bg-dark mb-3 p-m-4"
+        header="Editar"
         visible={visible}
         style={{ width: "50vw" }}
         onHide={limpiarCampos}
@@ -218,7 +219,7 @@ function Pedido() {
           <div className="input-group mb-3">
             <label className="input-group-text">Cliente</label>
             <select
-              className="form-control"
+              className="form-control bg-dark-input"
               value={cliente}
               onChange={(e) => setCliente(e.target.value)}
               required
@@ -236,7 +237,7 @@ function Pedido() {
             <label className="input-group-text">Fecha</label>
             <input
               type="date"
-              className="form-control"
+              className="form-control bg-dark-input"
               value={fecha}
               onChange={(e) => setFecha(e.target.value)}
               required
@@ -246,7 +247,7 @@ function Pedido() {
           <div className="input-group mb-3">
             <label className="input-group-text">Producto</label>
             <select
-              className="form-control"
+              className="form-control bg-dark-input"
               value={producto}
               onChange={(e) => setProducto(e.target.value)}
               required
@@ -264,7 +265,7 @@ function Pedido() {
             <label className="input-group-text">Cantidad</label>
             <input
               type="number"
-              className="form-control"
+              className="form-control bg-dark-input"
               value={cantidad}
               onChange={(e) => setCantidad(e.target.value)}
               min="1"
@@ -277,13 +278,13 @@ function Pedido() {
               label="Actualizar"
               icon="pi pi-check"
               onClick={handleSubmit}
-              className="p-button-success"
+              className="btn-actualizar"
             />
             <Button
               label="Eliminar"
               icon="pi pi-trash"
               onClick={handleDelete}
-              className="p-button-danger"
+              className="btn-eliminar" 
             />
           </div>
         </form>

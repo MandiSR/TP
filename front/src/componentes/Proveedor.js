@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
+import '../componentes/estilos.css';
 
 function Proveedor() {
   const [id, setId] = useState("");
@@ -94,7 +95,7 @@ function Proveedor() {
         <div className="card-body">
           <form onSubmit={handleAddProveedor}>
             <div className="input-group mb-3 bg-dark p-2 text-white bg-opacity-75">
-              <label className="input-group-text">Nombre</label>
+              <label className="label input-group-text bg-dark p-2 text-white">Nombre</label>
               <input
                 className="form-control"
                 type="text"
@@ -105,7 +106,7 @@ function Proveedor() {
               />
             </div>
             <div className="input-group mb-3 bg-dark p-2 text-white bg-opacity-75">
-              <label className="input-group-text">Cuit</label>
+              <label className="label input-group-text bg-dark p-2 text-white">CUIT</label>
               <input
                 className="form-control"
                 type="text"
@@ -116,7 +117,7 @@ function Proveedor() {
               />
             </div>
             <button className="btn btn-warning float-end" type="submit">
-              <b>Agregar Proveedor</b>
+              <b>Agregar</b>
             </button>
           </form>
         </div>
@@ -127,10 +128,10 @@ function Proveedor() {
         <table className="table table-striped" style={{ minWidth: "50rem" }}>
           <thead>
             <tr>
-              <th>Id</th>
+              <th>ID</th>
               <th>Nombre</th>
-              <th>Cuit</th>
-              <th>Acciones</th>
+              <th>CUIT</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -141,10 +142,10 @@ function Proveedor() {
                 <td>{proveedor.cuit}</td>
                 <td>
                   <Button
-                    label="Ver"
+                    label="Editar"
                     icon="pi pi-pencil"
                     onClick={() => handleEdit(proveedor)}
-                    className="p-button-warning"
+                    className="btn btn-dark m-2"
                   />
                 </td>
               </tr>
@@ -154,8 +155,8 @@ function Proveedor() {
       </div>
 
       <Dialog
-        className="dialog"
-        header="Editar Proveedor"
+        className="dialog bg-dark mb-3 p-m-4"
+        header="Editar"
         visible={visible}
         style={{ width: "50vw" }}
         onHide={() => setVisible(false)}
@@ -165,7 +166,7 @@ function Proveedor() {
             <label className="input-group-text">Nombre</label>
             <input
               type="text"
-              className="form-control"
+              className="form-control bg-dark-input"
               value={nombre}
               placeholder="Ingrese el nombre del Proveedor"
               onChange={(e) => setNombre(e.target.value)}
@@ -176,7 +177,7 @@ function Proveedor() {
             <label className="input-group-text">Cuit</label>
             <input
               type="text"
-              className="form-control"
+              className="form-control bg-dark-input"
               value={cuit}
               placeholder="Ingrese el cuit del Proveedor"
               onChange={(e) => setCuit(e.target.value)}
@@ -188,13 +189,13 @@ function Proveedor() {
               label="Actualizar"
               icon="pi pi-check"
               onClick={handleEditProveedor}
-              className="p-button-success"
+              className="btn-actualizar"
             />
             <Button
               label="Eliminar"
               icon="pi pi-trash"
               onClick={handleEliminarProveedor}
-              className="p-button-danger"
+              className="btn-eliminar"
             />
           </div>
         </form>

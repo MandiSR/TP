@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
+import '../componentes/estilos.css';
 
 function Cliente() {
   const [id, setId] = useState("");
@@ -124,7 +125,7 @@ function Cliente() {
         <div className="card-body">
           <form onSubmit={handleAddCliente}>
             <div className="input-group mb-3 bg-dark p-2 text-white bg-opacity-75">
-              <label className="input-group-text">Nombre</label>
+              <label className="label input-group-text bg-dark p-2 text-white">Nombre</label>
               <input
                 className="form-control"
                 type="text"
@@ -135,7 +136,7 @@ function Cliente() {
               />
             </div>
             <div className="input-group mb-3 bg-dark p-2 text-white bg-opacity-75">
-              <label className="input-group-text">Cuit</label>
+              <label className="label input-group-text bg-dark p-2 text-white">CUIT</label>
               <input
                 className="form-control"
                 type="text"
@@ -146,7 +147,7 @@ function Cliente() {
               />
             </div>
             <button className="btn btn-warning float-end" type="submit">
-              <b>Agregar Cliente</b>
+              <b>Agregar</b>
             </button>
           </form>
         </div>
@@ -157,10 +158,10 @@ function Cliente() {
         <table className="table table-striped" style={{ minWidth: "50rem" }}>
           <thead>
             <tr>
-              <th>Id</th>
+              <th>ID</th>
               <th>Nombre</th>
-              <th>Cuit</th>
-              <th>Acciones</th>
+              <th>CUIT</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -171,10 +172,10 @@ function Cliente() {
                 <td>{cliente.cuit}</td>
                 <td>
                   <Button
-                    label="Ver"
+                    label="Editar"
                     icon="pi pi-pencil"
                     onClick={() => handleEdit(cliente)}
-                    className="p-button-warning"
+                    className="btn btn-dark m-2"
                   />
                 </td>
               </tr>
@@ -184,8 +185,8 @@ function Cliente() {
       </div>
 
       <Dialog
-        className="dialog"
-        header="Editar Cliente"
+        className="dialog bg-dark mb-3 p-m-4"
+        header="Editar"
         visible={visible}
         style={{ width: "50vw" }}
         onHide={() => setVisible(false)}
@@ -195,7 +196,7 @@ function Cliente() {
             <label className="input-group-text">Nombre</label>
             <input
               type="text"
-              className="form-control"
+              className="form-control bg-dark-input" 
               value={nombre}
               placeholder="Ingrese el nombre del Cliente"
               onChange={(e) => setNombre(e.target.value)}
@@ -206,7 +207,7 @@ function Cliente() {
             <label className="input-group-text">Cuit</label>
             <input
               type="text"
-              className="form-control"
+              className="form-control bg-dark-input" 
               value={cuit}
               placeholder="Ingrese el cuit del Cliente"
               onChange={(e) => setCuit(e.target.value)}
@@ -218,13 +219,13 @@ function Cliente() {
               label="Actualizar"
               icon="pi pi-check"
               onClick={handleEditCliente}
-              className="p-button-success"
+              className="btn-actualizar"
             />
             <Button
               label="Eliminar"
               icon="pi pi-trash"
               onClick={handleEliminarCliente}
-              className="p-button-danger"
+              className="btn-eliminar" 
             />
           </div>
         </form>

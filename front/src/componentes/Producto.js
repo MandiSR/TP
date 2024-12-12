@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
+import '../componentes/estilos.css';
 
 function Producto() {
   const [id, setId] = useState("");
@@ -136,7 +137,7 @@ function Producto() {
         <div className="card-body">
           <form onSubmit={handleSubmit}>
             <div className="input-group mb-3 bg-dark p-2 text-white bg-opacity-75">
-              <label className="input-group-text">Nombre</label>
+              <label className="label input-group-text bg-dark p-2 text-white bg-opacity-75">Nombre</label>
               <input
                 className="form-control"
                 type="text"
@@ -147,7 +148,7 @@ function Producto() {
               />
             </div>
             <div className="input-group mb-3 bg-dark p-2 text-white bg-opacity-75">
-              <label className="input-group-text">Nombre Comercial</label>
+              <label className="label input-group-text bg-dark p-2 text-white bg-opacity-75">Nombre Comercial</label>
               <input
                 className="form-control"
                 type="text"
@@ -160,7 +161,7 @@ function Producto() {
             <div className="input-group mb-3 bg-dark p-2 text-white bg-opacity-75">
               <label className="input-group-text">Talle</label>
               <select
-                className="form-control"
+                className="form-control bg-dark p-2 text-white"
                 value={seleccion}
                 onChange={(e) => setSeleccion(e.target.value)}
                 required
@@ -174,7 +175,7 @@ function Producto() {
               </select>
             </div>
             <div className="input-group mb-3 bg-dark p-2 text-white bg-opacity-75">
-              <label className="input-group-text">Precio Venta</label>
+              <label className="label input-group-text bg-dark p-2 text-white bg-opacity-75">Precio Venta</label>
               <input
                 className="form-control"
                 type="number"
@@ -187,7 +188,7 @@ function Producto() {
             <div className="input-group mb-3 bg-dark p-2 text-white bg-opacity-75">
               <label className="input-group-text">Proveedor</label>
               <select
-                className="form-control"
+                className="form-control bg-dark p-2 text-white"
                 value={proveedor}
                 onChange={(e) => setProveedor(e.target.value)}
                 required
@@ -201,7 +202,7 @@ function Producto() {
               </select>
             </div>
             <div className="input-group mb-3 bg-dark p-2 text-white bg-opacity-75">
-              <label className="input-group-text">Precio Compra</label>
+              <label className="label input-group-text bg-dark p-2 text-white bg-opacity-75">Precio Compra</label>
               <input
                 className="form-control"
                 type="number"
@@ -212,7 +213,7 @@ function Producto() {
               />
             </div>
             <div className="input-group mb-3 bg-dark p-2 text-white bg-opacity-75">
-              <label className="input-group-text">Imagen</label>
+              <label className="label input-group-text bg-dark p-2 text-white bg-opacity-75">Imagen</label>
               <input
                 className="form-control"
                 type="file"
@@ -231,7 +232,7 @@ function Producto() {
         <table className="table table-striped">
           <thead>
             <tr>
-              <th>Id</th>
+              <th>ID</th>
               <th>Nombre</th>
               <th>Nombre Comercial</th>
               <th>Talle</th>
@@ -239,7 +240,7 @@ function Producto() {
               <th>Proveedor</th>
               <th>Precio Compra</th>
               <th>Imagen</th>
-              <th>Acciones</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -264,10 +265,10 @@ function Producto() {
                 </td>
                 <td>
                   <Button
-                    label="Editar/Eliminar"
+                    label="Editar"
                     icon="pi pi-pencil"
                     onClick={() => handleEdit(producto)}
-                    className="p-button-warning"
+                    className="btn btn-dark m-2"
                   />
                 </td>
               </tr>
@@ -277,8 +278,8 @@ function Producto() {
       </div>
 
       <Dialog
-        className="dialog"
-        header="Editar Producto"
+        className="dialog bg-dark mb-3 p-m-4"
+        header="Editar"
         visible={visible}
         style={{ width: "50vw" }}
         onHide={limpiarCampos}
@@ -288,7 +289,7 @@ function Producto() {
             <label className="input-group-text">Nombre</label>
             <input
               type="text"
-              className="form-control"
+              className="form-control bg-dark-input"
               value={nombre}
               onChange={(e) => setNombre(e.target.value)}
               required
@@ -298,7 +299,7 @@ function Producto() {
             <label className="input-group-text">Nombre Comercial</label>
             <input
               type="text"
-              className="form-control"
+              className="form-control bg-dark-input"
               value={nombreComercial}
               onChange={(e) => setNombreComercial(e.target.value)}
               required
@@ -307,7 +308,7 @@ function Producto() {
           <div className="input-group mb-3">
             <label className="input-group-text">Talle</label>
             <select
-              className="form-control"
+              className="form-control bg-dark-input"
               value={seleccion}
               onChange={(e) => setSeleccion(e.target.value)}
               required
@@ -324,7 +325,7 @@ function Producto() {
             <label className="input-group-text">Precio Venta</label>
             <input
               type="number"
-              className="form-control"
+              className="form-control bg-dark-input"
               value={precioVenta}
               onChange={(e) => setPrecioVenta(e.target.value)}
               required
@@ -333,7 +334,7 @@ function Producto() {
           <div className="input-group mb-3">
             <label className="input-group-text">Proveedor</label>
             <select
-              className="form-control"
+              className="form-control bg-dark-input"
               value={proveedor}
               onChange={(e) => setProveedor(e.target.value)}
               required
@@ -350,7 +351,7 @@ function Producto() {
             <label className="input-group-text">Precio Compra</label>
             <input
               type="number"
-              className="form-control"
+              className="form-control bg-dark-input"
               value={precioCompra}
               onChange={(e) => setPrecioCompra(e.target.value)}
               required
@@ -360,7 +361,7 @@ function Producto() {
             <label className="input-group-text">Imagen</label>
             <input
               type="file"
-              className="form-control"
+              className="form-control bg-dark-input"
               onChange={handleImageChange}
             />
           </div>
@@ -369,13 +370,13 @@ function Producto() {
               label="Actualizar"
               icon="pi pi-check"
               onClick={handleSubmit}
-              className="p-button-success"
+              className="btn-actualizar" 
             />
             <Button
               label="Eliminar"
               icon="pi pi-trash"
               onClick={handleEliminarProducto}
-              className="p-button-danger"
+              className="btn-eliminar" 
             />
           </div>
         </form>
