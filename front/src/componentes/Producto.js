@@ -20,7 +20,7 @@ function Producto() {
   useEffect(() => {
     const fetchProveedores = async () => {
       try {
-        const response = await axios.get("http://localhost:3001/api/proveedor/");
+        const response = await axios.get("https://tp-production-3bfb.up.railway.app/api/proveedor/");
         setProveedores(response.data);
       } catch (error) {
         console.error("Error al cargar proveedores:", error);
@@ -29,7 +29,7 @@ function Producto() {
 
     const fetchProductos = async () => {
       try {
-        const response = await axios.get("http://localhost:3001/api/producto/el-producto");
+        const response = await axios.get("https://tp-production-3bfb.up.railway.app/api/producto/el-producto");
         setProductoInfoList(response.data);
       } catch (error) {
         console.error("Error al cargar productos", error);
@@ -75,12 +75,12 @@ function Producto() {
 
     try {
       if (id) {
-        await axios.put(`http://localhost:3001/api/producto/modificar-producto/${id}`, formData, {
+        await axios.put(`https://tp-production-3bfb.up.railway.app/api/producto/modificar-producto/${id}`, formData, {
           headers: { "Content-Type": "multipart/form-data" },
         });
         alert("Producto actualizado con éxito");
       } else {
-        await axios.post("http://localhost:3001/api/producto/guardar", formData, {
+        await axios.post("https://tp-production-3bfb.up.railway.app/api/producto/guardar", formData, {
           headers: { "Content-Type": "multipart/form-data" },
         });
         alert("Producto guardado con éxito");
@@ -106,7 +106,7 @@ function Producto() {
 
   const handleEliminarProducto = async () => {
     try {
-      await axios.delete(`http://localhost:3001/api/producto/eliminar/${id}`);
+      await axios.delete(`https://tp-production-3bfb.up.railway.app/api/producto/eliminar/${id}`);
       alert("Producto eliminado con éxito");
       setProductoInfoList(productoInfoList.filter((producto) => producto.id !== id));
       setVisible(false);

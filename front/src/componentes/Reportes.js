@@ -15,7 +15,7 @@ const Reportes = () => {
   
   const obtenerProductos = async () => {
     try {
-      const response = await axios.get("http://localhost:3001/api/producto/el-producto");
+      const response = await axios.get("https://tp-production-3bfb.up.railway.app/api/producto/el-producto");
       const productos = response.data;
 
       const labels = productos.map((producto) => producto.nombre);
@@ -48,7 +48,7 @@ const Reportes = () => {
 
   const obtenerProveedoresMasUtilizados = async () => {
     try {
-      const response = await axios.get("http://localhost:3001/api/producto/el-producto");
+      const response = await axios.get("https://tp-production-3bfb.up.railway.app/api/producto/el-producto");
       const productos = response.data;
   
       

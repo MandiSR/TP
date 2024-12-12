@@ -17,7 +17,7 @@ function Cliente() {
   useEffect(() => {
     const fetchClientes = async () => {
       try {
-        const response = await axios.get("http://localhost:3001/api/cliente/usuarios");
+        const response = await axios.get("https://tp-production-3bfb.up.railway.app/api/cliente/usuarios");
         setClienteList(response.data);
       } catch (error) {
         console.error("Error al obtener los clientes:", error);
@@ -43,7 +43,7 @@ function Cliente() {
       setEditingIndex(null);
     } else {
       try {
-        const response = await axios.post("http://localhost:3001/api/cliente/guardar", { nombre, cuit });
+        const response = await axios.post("https://tp-production-3bfb.up.railway.app/api/cliente/guardar", { nombre, cuit });
         alert("Cliente guardado con éxito");
         actualizarLista();
         limpiarCampos();
@@ -56,7 +56,7 @@ function Cliente() {
   const handleAddCliente = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:3001/api/cliente/guardar", { nombre, cuit });
+      await axios.post("https://tp-production-3bfb.up.railway.app/api/cliente/guardar", { nombre, cuit });
       alert("Cliente guardado con éxito");
       actualizarLista();
       limpiarCampos();
@@ -67,7 +67,7 @@ function Cliente() {
 
   const handleEditCliente = async () => {
     try {
-      await axios.put(`http://localhost:3001/api/cliente/modificar-cliente/${id}`, {
+      await axios.put(`https://tp-production-3bfb.up.railway.app/api/cliente/modificar-cliente/${id}`, {
         id,
         nombre,
         cuit,
@@ -83,7 +83,7 @@ function Cliente() {
 
   const handleEliminarCliente = async () => {
     try {
-      await axios.delete(`http://localhost:3001/api/cliente/eliminar/${id}`);
+      await axios.delete(`https://tp-production-3bfb.up.railway.app/api/cliente/eliminar/${id}`);
       alert("Cliente eliminado con éxito");
       setClienteList(clienteList.filter((cliente) => cliente.id !== id));
       setVisible(false);
@@ -95,7 +95,7 @@ function Cliente() {
 
   const actualizarLista = async () => {
     try {
-      const response = await axios.get("http://localhost:3001/api/cliente/usuarios");
+      const response = await axios.get("https://tp-production-3bfb.up.railway.app/api/cliente/usuarios");
       setClienteList(response.data);
     } catch (error) {
       console.error("Error al actualizar la lista de clientes:", error);

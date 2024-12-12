@@ -18,13 +18,13 @@ function Pedido() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const productos = await axios.get("http://localhost:3001/api/producto/el-producto");
+        const productos = await axios.get("https://tp-production-3bfb.up.railway.app/api/producto/el-producto");
         setProductosList(productos.data || []);
 
-        const clientes = await axios.get("http://localhost:3001/api/cliente/usuarios");
+        const clientes = await axios.get("https://tp-production-3bfb.up.railway.app/api/cliente/usuarios");
         setClientesList(clientes.data || []);
 
-        const pedidos = await axios.get("http://localhost:3001/api/pedido");
+        const pedidos = await axios.get("https://tp-production-3bfb.up.railway.app/api/pedido");
         setPedidosList(pedidos.data || []);
       } catch (error) {
         console.error("Error al cargar los datos:", error);
@@ -50,10 +50,10 @@ function Pedido() {
 
     try {
       if (id) {
-        await axios.put(`http://localhost:3001/api/pedido/${id}`, pedidoData);
+        await axios.put(`https://tp-production-3bfb.up.railway.app/api/pedido/${id}`, pedidoData);
         alert("Pedido actualizado con éxito");
       } else {
-        await axios.post("http://localhost:3001/api/pedido/guardar", pedidoData);
+        await axios.post("https://tp-production-3bfb.up.railway.app/api/pedido/guardar", pedidoData);
         alert("Pedido guardado con éxito");
       }
       fetchPedidosList();
@@ -83,7 +83,7 @@ function Pedido() {
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`http://localhost:3001/api/pedido/${id}`);
+      await axios.delete(`https://tp-production-3bfb.up.railway.app/api/pedido/${id}`);
       alert("Pedido eliminado con éxito");
       fetchPedidosList();
       limpiarCampos();
@@ -94,7 +94,7 @@ function Pedido() {
 
   const fetchPedidosList = async () => {
     try {
-      const response = await axios.get("http://localhost:3001/api/pedido");
+      const response = await axios.get("https://tp-production-3bfb.up.railway.app/api/pedido");
       setPedidosList(response.data || []);
     } catch (error) {
       console.error("Error al cargar pedidos:", error);

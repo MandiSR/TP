@@ -4,7 +4,7 @@ import { Button } from "primereact/button";
 import { useNavigate } from "react-router-dom"; 
 import axios from "axios";
 
-const API_BASE_URL = "http://localhost:3001/api";
+const API_BASE_URL = "https://tp-production-3bfb.up.railway.app/api";
 
 function CatalogoProducto() {
   
@@ -51,7 +51,7 @@ function CatalogoProducto() {
               }
               header={
                 <img
-                  src={`http://localhost:3001/uploads/${item.fotoProducto}`}
+                  src={`https://tp-production-3bfb.up.railway.app/api/uploads/${item.fotoProducto}`}
                   alt={item.nombre}
                   style={{
                     width: "100%",
