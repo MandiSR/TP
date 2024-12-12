@@ -1,6 +1,6 @@
 const mysql = require('mysql2');
 
-// Obtener la URL de conexión desde la variable de entorno
+
 const dbUrl = process.env.MYSQL_URL;
 
 // Si la URL de la base de datos no está definida, lanzamos un error.
@@ -9,7 +9,7 @@ if (!dbUrl) {
     process.exit(1);
 }
 
-// Crear la conexión utilizando la URL proporcionada por la variable de entorno
+
 const connection = mysql.createConnection(dbUrl);
 
 connection.connect((err) => {
