@@ -1,247 +1,206 @@
-import React, {useState, useEffect} from "react";
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { Dialog } from "primereact/dialog";
+import { Button } from "primereact/button";
 
-
-
-function Cliente(){
+function Cliente() {
   const [id, setId] = useState("");
   const [nombre, setNombre] = useState("");
   const [cuit, setCuit] = useState("");
 
-    const [editMode, setEditMode] = useState(false);
-      const [editingIndex, setEditingIndex] = useState(null);
+  const [clienteList, setClienteList] = useState([]);
+  const [visible, setVisible] = useState(false);
 
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   const formData = new FormData();
-  //   formData.append("id", id);
-  //   formData.append("nombre", nombre);
-  //   formData.append("cuit", cuit);
-  //   if (editMode) {
-  //      const updatedList = clienteList.map((item, index) => 
-  //         index === editingIndex ? formData : item
-  //       );
-  //       setClienteList(updatedList);
-  //       setEditMode(false);
-  //       setEditingIndex(null);
-  //     } 
-  //     else{
-  //       try {
-  //         await axios.post("http://localhost:3001/api/cliente/guardar", formData, {
-  //           headers: {
-  //             "Content-Type": "multipart/form-data",
-  //           },
-  //         });
-  //         alert("Cliente guardado con éxito");
-  //       } catch (error) {
-  //         console.error("Error al guardar el cliente", error);
-  //       }
-  //  }
-  //  limpiarCampos();
-  // };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const clientData = {
-      id: id,
-      nombre: nombre,
-      cuit: cuit,
-    };
-  
-    if (editMode) {
-      const updatedList = clienteList.map((item, index) =>
-        index === editingIndex ? clientData : item
-      );
-      setClienteList(updatedList);
-      setEditMode(false);
-      setEditingIndex(null);
-    } else {
+  useEffect(() => {
+    const fetchClientes = async () => {
       try {
-        await axios.post("http://localhost:3001/api/cliente/guardar", clientData, {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-        alert("Cliente guardado con éxito");
+        const response = await axios.get("http://localhost:3001/api/cliente/usuarios");
+        setClienteList(response.data);
       } catch (error) {
-        console.error("Error al guardar el cliente", error);
+        console.error("Error al obtener los clientes:", error);
       }
+    };
+    fetchClientes();
+  }, []);
+
+  const handleAddCliente = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.post("http://localhost:3001/api/cliente/guardar", { nombre, cuit });
+      alert("Cliente guardado con éxito");
+      actualizarLista();
+      limpiarCampos();
+    } catch (error) {
+      console.error("Error al guardar el cliente:", error);
     }
-  
-    limpiarCampos();
   };
-  
+
+  const handleEditCliente = async () => {
+    try {
+      await axios.put(`http://localhost:3001/api/cliente/modificar-cliente/${id}`, {
+        id,
+        nombre,
+        cuit,
+      });
+      alert("Cliente actualizado con éxito");
+      actualizarLista();
+      setVisible(false);
+      limpiarCampos();
+    } catch (error) {
+      console.error("Error al actualizar el cliente:", error);
+    }
+  };
+
+  const handleEliminarCliente = async () => {
+    try {
+      await axios.delete(`http://localhost:3001/api/cliente/eliminar/${id}`);
+      alert("Cliente eliminado con éxito");
+      setClienteList(clienteList.filter((cliente) => cliente.id !== id));
+      setVisible(false);
+      limpiarCampos();
+    } catch (error) {
+      console.error("Error al eliminar el cliente:", error);
+    }
+  };
+
+  const actualizarLista = async () => {
+    try {
+      const response = await axios.get("http://localhost:3001/api/cliente/usuarios");
+      setClienteList(response.data);
+    } catch (error) {
+      console.error("Error al actualizar la lista de clientes:", error);
+    }
+  };
 
   const handleEdit = (cliente) => {
     setId(cliente.id);
     setNombre(cliente.nombre);
     setCuit(cliente.cuit);
-    
-    setEditMode(true);
-    setEditingIndex(cliente);
-    
+    setVisible(true);
   };
 
-  const limpiarCampos=()=>{
-    
-        setId('');
-        setNombre('');
-        setCuit('');
-        
-    setEditMode(false);
-  }
-
-  const updateCliente = () => {
-    axios.put(`http://localhost:3001/api/cliente/modificar-cliente/${id}`, {
-      id: id,
-      nombre: nombre,
-      cuit:cuit,
-      })
-      .then(() => {
-        limpiarCampos();
-      });
-      alert("Datos guardados desde el boton de actualizar exitosamente!");
+  const limpiarCampos = () => {
+    setId("");
+    setNombre("");
+    setCuit("");
   };
-  
 
-  //LISTADO DE Clientes
-  const [clienteList, setClienteList] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch(
-        "http://localhost:3001/api/cliente/usuarios"
-      );
-      const data = await response.json();
-      setClienteList(data);
-    };
-    fetchData();
-  }, []);
-
-  const eliminarCliente = (id) => {
-    axios
-      .delete(`http://localhost:3001/api/cliente/eliminar/${id}`)
-      .then(() => {
-        setClienteList(
-            clienteList.filter((cliente) => cliente.id !== id)
-        );
-      });
-    };
-    
-
-    return(
-        <div>
-            <div className="card bg-dark border-dark mb-3">
+  return (
+    <div>
+      <div className="card bg-dark border-dark mb-3">
         <div className="card-header">
           <h2 className="text-center bg-dark p-2 text-warning">Datos de los Clientes</h2>
         </div>
         <div className="card-body">
-        
-        <form onSubmit={handleSubmit}>  
-          <div className="input-group mb-3 bg-dark p-2 text-white bg-opacity-75">
-          <span className="label input-group-text bg-dark p-2 text-white bg-opacity-75" id="basic-addon1">
-                Nombre
-              </span>
-            <input
-            className="form-control"
-            aria-label="Username"
-            aria-describedby="basic-addon1"
-            required
-              type='text'
-              name='nombre'
-              placeholder='Ingrese el nombre del Cliente'
-              value={nombre}
-              onChange={(e) => setNombre(e.target.value)}
-            />
-          </div>
-          <div className="input-group mb-3 bg-dark p-2 text-white bg-opacity-75">
-          <span className="label input-group-text bg-dark p-2 text-white bg-opacity-75" id="basic-addon1">
-                Cuit
-              </span>
-            <input
-            className="form-control"
-            aria-label="Username"
-            aria-describedby="basic-addon1"
-            required
-              type='text'
-              name='cuit'
-              placeholder='Ingrese el cuit del Cliente'
-              value={cuit}
-              onChange={(e) => setCuit(e.target.value)}
-            />
-          </div>
-          <div className="card-footer text-body-secondary">
-                {editMode ? (
-                  <div>
-                    <button className="btn btn-dark m-2" onClick={updateCliente}>
-                      Actualizar
-                    </button>
-                    <button className="btn btn-light m-2" onClick={limpiarCampos}>
-                      Cancelar
-                    </button>
-                  </div>
-                ) : (
-                  <button className="btn btn-warning float-end" type="submit">
-                   <b>Agregar</b>
-                  </button>
-                )}
-                </div>
-        </form>
+          <form onSubmit={handleAddCliente}>
+            <div className="input-group mb-3 bg-dark p-2 text-white bg-opacity-75">
+              <label className="input-group-text">Nombre</label>
+              <input
+                className="form-control"
+                type="text"
+                value={nombre}
+                placeholder="Ingrese el nombre del Cliente"
+                onChange={(e) => setNombre(e.target.value)}
+                required
+              />
+            </div>
+            <div className="input-group mb-3 bg-dark p-2 text-white bg-opacity-75">
+              <label className="input-group-text">Cuit</label>
+              <input
+                className="form-control"
+                type="text"
+                value={cuit}
+                placeholder="Ingrese el cuit del Cliente"
+                onChange={(e) => setCuit(e.target.value)}
+                required
+              />
+            </div>
+            <button className="btn btn-warning float-end" type="submit">
+              <b>Agregar Cliente</b>
+            </button>
+          </form>
         </div>
       </div>
 
       <div className="card text-bg-dark mb-5">
         <h2 className="text-center text-warning">Lista de Clientes</h2>
-        <table
-          className="table table-striped "
-          tableStyle={{ minWidth: "50rem" }}
-        >
+        <table className="table table-striped" style={{ minWidth: "50rem" }}>
           <thead>
             <tr>
-              <th scope="col">Id</th>
-              <th scope="col">Nombre</th>
-              <th scope="col">Cuit</th>
-              <th scope="col">Acciones</th>
+              <th>Id</th>
+              <th>Nombre</th>
+              <th>Cuit</th>
+              <th>Acciones</th>
             </tr>
           </thead>
           <tbody>
-            {clienteList.map((cliente, key) => {
-              return (
-                <tr key={cliente.id}>
-                  <td>{cliente.id}</td>
-                  <td>{cliente.nombre}</td>
-                  <td>{cliente.cuit}</td>
-                  <td>
-                    <div
-                      className="btn-group"
-                      role="group"
-                      aria-label="Basic example"
-                    >
-                      <button type="button" className="btn btn-warning m-2"
-                          onClick={() => handleEdit(cliente)}>
-                            Editar
-                          </button>
-                          <button
-                            type="button"
-                            className="btn btn-dark m-2"
-                            onClick={() => eliminarCliente(cliente.id)}
-                          >
-                            Eliminar
-                          </button>
-                    </div>
-                  </td>
-                </tr>
-              );
-            })}
+            {clienteList.map((cliente) => (
+              <tr key={cliente.id}>
+                <td>{cliente.id}</td>
+                <td>{cliente.nombre}</td>
+                <td>{cliente.cuit}</td>
+                <td>
+                  <Button
+                    label="Ver"
+                    icon="pi pi-pencil"
+                    onClick={() => handleEdit(cliente)}
+                    className="p-button-warning"
+                  />
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
 
-        
+      <Dialog
+        className="dialog"
+        header="Editar Cliente"
+        visible={visible}
+        style={{ width: "50vw" }}
+        onHide={() => setVisible(false)}
+      >
+        <form>
+          <div className="input-group mb-3">
+            <label className="input-group-text">Nombre</label>
+            <input
+              type="text"
+              className="form-control"
+              value={nombre}
+              placeholder="Ingrese el nombre del Cliente"
+              onChange={(e) => setNombre(e.target.value)}
+              required
+            />
+          </div>
+          <div className="input-group mb-3">
+            <label className="input-group-text">Cuit</label>
+            <input
+              type="text"
+              className="form-control"
+              value={cuit}
+              placeholder="Ingrese el cuit del Cliente"
+              onChange={(e) => setCuit(e.target.value)}
+              required
+            />
+          </div>
+          <div className="d-flex justify-content-between">
+            <Button
+              label="Actualizar"
+              icon="pi pi-check"
+              onClick={handleEditCliente}
+              className="p-button-success"
+            />
+            <Button
+              label="Eliminar"
+              icon="pi pi-trash"
+              onClick={handleEliminarCliente}
+              className="p-button-danger"
+            />
+          </div>
+        </form>
+      </Dialog>
     </div>
-    )
+  );
 }
 
 export default Cliente;
-
