@@ -8,7 +8,7 @@ const app = express();
 // Configuración de CORS
 const corsOptions = {
   origin: [
-    'https://final-c7e61.web.app/protected', // URL del nuevo deploy del frontend
+    'https://final-c7e61.web.app/', // URL del nuevo deploy del frontend
     'https://final-c7e61.firebaseapp.com/',  // URL alternativa del nuevo deploy
   ],
   methods: 'GET,POST,PUT,DELETE',
