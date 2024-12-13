@@ -65,7 +65,7 @@ function deleteProveedor(req,res) {
     connection.query(query, [proveedorId], (err, result) => {
         if(err){
             console.error(err)
-            res.statust(500).send("Error deleting notes from database")
+            res.status(500).send("Error deleting notes from database")
         }else {
             res.json(result)
         }
