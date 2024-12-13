@@ -23,7 +23,7 @@ export const Auth = () => {
 
       
 
-      navigate("/protected/");
+      navigate("/protected");
     } catch (error) {
       console.error(error);
     }
