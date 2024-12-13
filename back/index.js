@@ -8,23 +8,15 @@ const app = express();
 // Configuración de CORS
 const corsOptions = {
   origin: [
-    'https://final-c7e61.web.app/', // URL del nuevo deploy del frontend
-    'https://final-c7e61.firebaseapp.com/',  // URL alternativa del nuevo deploy
+    'https://final-c7e61.web.app', // URL del nuevo deploy del frontend
+    'https://final-c7e61.firebaseapp.com', // URL alternativa del nuevo deploy
   ],
-  methods: 'GET,POST,PUT,DELETE',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos permitidos
+  allowedHeaders: ['Content-Type', 'Authorization'], // Cabeceras permitidas
   credentials: true, // Permitir cookies y headers personalizados
 };
 
 app.use(cors(corsOptions));
-
-// // Middleware para manejar encabezados adicionales
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', req.headers.origin || '*');
-  res.header('Access-Control-Allow-Credentials', 'true');
-  res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
-  next();
-});
 
 // Middleware para manejar JSON
 app.use(express.json());
@@ -53,6 +45,7 @@ app.listen(PORT, () => {
 
 
 
+
 // require('dotenv').config();
 
 // const express = require('express');
@@ -63,13 +56,23 @@ app.listen(PORT, () => {
 // // Configuración de CORS
 // const corsOptions = {
 //   origin: [
-//     'https://final-9adbe.web.app', // URL del frontend en Firebase
-//     'https://final-9adbe.firebaseapp.com' // URL alternativa
+//     'https://final-c7e61.web.app/', // URL del nuevo deploy del frontend
+//     'https://final-c7e61.firebaseapp.com/',  // URL alternativa del nuevo deploy
 //   ],
 //   methods: 'GET,POST,PUT,DELETE',
-//   credentials: true,
+//   credentials: true, // Permitir cookies y headers personalizados
 // };
+
 // app.use(cors(corsOptions));
+
+// // // Middleware para manejar encabezados adicionales
+// app.use((req, res, next) => {
+//   res.header('Access-Control-Allow-Origin', req.headers.origin || '*');
+//   res.header('Access-Control-Allow-Credentials', 'true');
+//   res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE');
+//   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+//   next();
+// });
 
 // // Middleware para manejar JSON
 // app.use(express.json());
@@ -94,3 +97,7 @@ app.listen(PORT, () => {
 // app.listen(PORT, () => {
 //   console.log('Listening on port ' + PORT);
 // });
+
+
+
+
