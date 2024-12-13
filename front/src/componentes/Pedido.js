@@ -10,11 +10,9 @@ function Pedido() {
   const [cliente, setCliente] = useState("");
   const [producto, setProducto] = useState("");
   const [cantidad, setCantidad] = useState(1);
-  const [proveedor, setProveedor] = useState("");
   const [pedidosList, setPedidosList] = useState([]);
   const [productosList, setProductosList] = useState([]);
   const [clientesList, setClientesList] = useState([]);
-  const [proveedoresList, setProveedoresList] = useState([]);
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -25,9 +23,6 @@ function Pedido() {
 
         const clientes = await axios.get("https://tp-production-3bfb.up.railway.app/api/cliente/usuarios");
         setClientesList(clientes.data || []);
-
-        const proveedores = await axios.get("https://tp-production-3bfb.up.railway.app/api/proveedor/");
-        setProveedoresList(proveedores.data || []);
 
         const pedidos = await axios.get("https://tp-production-3bfb.up.railway.app/api/pedido");
         setPedidosList(pedidos.data || []);
@@ -47,7 +42,6 @@ function Pedido() {
 
     const pedidoData = {
       clienteId: cliente,
-      proveedorId: proveedor,
       saldoTotal: totalProducto,
       fechaCreacion: fecha,
       productoId: productoSeleccionado.id,
@@ -56,7 +50,7 @@ function Pedido() {
 
     try {
       if (id) {
-        await axios.put("https://tp-production-3bfb.up.railway.app/api/pedido/${id}", pedidoData);
+        await axios.put(`https://tp-production-3bfb.up.railway.app/api/pedido/${id}`, pedidoData);
         alert("Pedido actualizado con éxito");
       } else {
         await axios.post("https://tp-production-3bfb.up.railway.app/api/pedido/guardar", pedidoData);
@@ -75,7 +69,6 @@ function Pedido() {
     setCliente("");
     setProducto("");
     setCantidad(1);
-    setProveedor("");
     setVisible(false);
   };
 
@@ -85,13 +78,12 @@ function Pedido() {
     setCliente(pedido.clienteId);
     setProducto(pedido.productoId);
     setCantidad(pedido.cantidad);
-    setProveedor(pedido.proveedorId);
     setVisible(true);
   };
 
   const handleDelete = async () => {
     try {
-      await axios.delete("https://tp-production-3bfb.up.railway.app/api/pedido/${id}");
+      await axios.delete(`https://tp-production-3bfb.up.railway.app/api/pedido/${id}`);
       alert("Pedido eliminado con éxito");
       fetchPedidosList();
       limpiarCampos();
@@ -135,7 +127,7 @@ function Pedido() {
             </div>
 
             <div className="input-group mb-3 bg-dark p-2 text-white bg-opacity-75">
-              <span className="label input-group-text">Fecha</span>
+              <span className="label input-group-text bg-dark p-2 text-white">Fecha</span>
               <input
                 type="date"
                 className="form-control"
@@ -163,24 +155,7 @@ function Pedido() {
             </div>
 
             <div className="input-group mb-3 bg-dark p-2 text-white bg-opacity-75">
-              <span className="label input-group-text">Proveedor</span>
-              <select
-                className="form-control bg-dark p-2 text-white"
-                value={proveedor}
-                onChange={(e) => setProveedor(e.target.value)}
-                required
-              >
-                <option value="">Seleccione...</option>
-                {proveedoresList.map((prov) => (
-                  <option key={prov.id} value={prov.id}>
-                    {prov.nombre}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div className="input-group mb-3 bg-dark p-2 text-white bg-opacity-75">
-              <span className="label input-group-text">Cantidad</span>
+              <span className="label input-group-text bg-dark p-2 text-white">Cantidad</span>
               <input
                 type="number"
                 className="form-control"
@@ -207,7 +182,6 @@ function Pedido() {
               <th>Cliente</th>
               <th>Fecha</th>
               <th>Producto</th>
-              <th>Proveedor</th>
               <th>Total</th>
               <th></th>
             </tr>
@@ -219,7 +193,6 @@ function Pedido() {
                 <td>{pedido.cliente}</td>
                 <td>{new Date(pedido.fechaCreacion).toLocaleDateString()}</td>
                 <td>{pedido.producto} - {pedido.cantidad} x {pedido.saldoTotal}€</td>
-                <td>{pedido.proveedor}</td>
                 <td>{pedido.saldoTotal}€</td>
                 <td>
                   <Button
@@ -289,23 +262,6 @@ function Pedido() {
           </div>
 
           <div className="input-group mb-3">
-            <label className="input-group-text">Proveedor</label>
-            <select
-              className="form-control bg-dark-input"
-              value={proveedor}
-              onChange={(e) => setProveedor(e.target.value)}
-              required
-            >
-              <option value="">Seleccione...</option>
-              {proveedoresList.map((prov) => (
-                <option key={prov.id} value={prov.id}>
-                  {prov.nombre}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div className="input-group mb-3">
             <label className="input-group-text">Cantidad</label>
             <input
               type="number"
@@ -340,6 +296,8 @@ function Pedido() {
 
 export default Pedido;
 
+
+
 // import React, { useState, useEffect } from "react";
 // import axios from "axios";
 // import { Dialog } from "primereact/dialog";
@@ -352,9 +310,11 @@ export default Pedido;
 //   const [cliente, setCliente] = useState("");
 //   const [producto, setProducto] = useState("");
 //   const [cantidad, setCantidad] = useState(1);
+//   const [proveedor, setProveedor] = useState("");
 //   const [pedidosList, setPedidosList] = useState([]);
 //   const [productosList, setProductosList] = useState([]);
 //   const [clientesList, setClientesList] = useState([]);
+//   const [proveedoresList, setProveedoresList] = useState([]);
 //   const [visible, setVisible] = useState(false);
 
 //   useEffect(() => {
@@ -365,6 +325,9 @@ export default Pedido;
 
 //         const clientes = await axios.get("https://tp-production-3bfb.up.railway.app/api/cliente/usuarios");
 //         setClientesList(clientes.data || []);
+
+//         const proveedores = await axios.get("https://tp-production-3bfb.up.railway.app/api/proveedor/");
+//         setProveedoresList(proveedores.data || []);
 
 //         const pedidos = await axios.get("https://tp-production-3bfb.up.railway.app/api/pedido");
 //         setPedidosList(pedidos.data || []);
@@ -384,6 +347,7 @@ export default Pedido;
 
 //     const pedidoData = {
 //       clienteId: cliente,
+//       proveedorId: proveedor,
 //       saldoTotal: totalProducto,
 //       fechaCreacion: fecha,
 //       productoId: productoSeleccionado.id,
@@ -392,7 +356,7 @@ export default Pedido;
 
 //     try {
 //       if (id) {
-//         await axios.put(`https://tp-production-3bfb.up.railway.app/api/pedido/${id}`, pedidoData);
+//         await axios.put("https://tp-production-3bfb.up.railway.app/api/pedido/${id}", pedidoData);
 //         alert("Pedido actualizado con éxito");
 //       } else {
 //         await axios.post("https://tp-production-3bfb.up.railway.app/api/pedido/guardar", pedidoData);
@@ -411,6 +375,7 @@ export default Pedido;
 //     setCliente("");
 //     setProducto("");
 //     setCantidad(1);
+//     setProveedor("");
 //     setVisible(false);
 //   };
 
@@ -420,12 +385,13 @@ export default Pedido;
 //     setCliente(pedido.clienteId);
 //     setProducto(pedido.productoId);
 //     setCantidad(pedido.cantidad);
+//     setProveedor(pedido.proveedorId);
 //     setVisible(true);
 //   };
 
 //   const handleDelete = async () => {
 //     try {
-//       await axios.delete(`https://tp-production-3bfb.up.railway.app/api/pedido/${id}`);
+//       await axios.delete("https://tp-production-3bfb.up.railway.app/api/pedido/${id}");
 //       alert("Pedido eliminado con éxito");
 //       fetchPedidosList();
 //       limpiarCampos();
@@ -469,7 +435,7 @@ export default Pedido;
 //             </div>
 
 //             <div className="input-group mb-3 bg-dark p-2 text-white bg-opacity-75">
-//               <span className="label input-group-text bg-dark p-2 text-white">Fecha</span>
+//               <span className="label input-group-text">Fecha</span>
 //               <input
 //                 type="date"
 //                 className="form-control"
@@ -497,7 +463,24 @@ export default Pedido;
 //             </div>
 
 //             <div className="input-group mb-3 bg-dark p-2 text-white bg-opacity-75">
-//               <span className="label input-group-text bg-dark p-2 text-white">Cantidad</span>
+//               <span className="label input-group-text">Proveedor</span>
+//               <select
+//                 className="form-control bg-dark p-2 text-white"
+//                 value={proveedor}
+//                 onChange={(e) => setProveedor(e.target.value)}
+//                 required
+//               >
+//                 <option value="">Seleccione...</option>
+//                 {proveedoresList.map((prov) => (
+//                   <option key={prov.id} value={prov.id}>
+//                     {prov.nombre}
+//                   </option>
+//                 ))}
+//               </select>
+//             </div>
+
+//             <div className="input-group mb-3 bg-dark p-2 text-white bg-opacity-75">
+//               <span className="label input-group-text">Cantidad</span>
 //               <input
 //                 type="number"
 //                 className="form-control"
@@ -524,6 +507,7 @@ export default Pedido;
 //               <th>Cliente</th>
 //               <th>Fecha</th>
 //               <th>Producto</th>
+//               <th>Proveedor</th>
 //               <th>Total</th>
 //               <th></th>
 //             </tr>
@@ -535,6 +519,7 @@ export default Pedido;
 //                 <td>{pedido.cliente}</td>
 //                 <td>{new Date(pedido.fechaCreacion).toLocaleDateString()}</td>
 //                 <td>{pedido.producto} - {pedido.cantidad} x {pedido.saldoTotal}€</td>
+//                 <td>{pedido.proveedor}</td>
 //                 <td>{pedido.saldoTotal}€</td>
 //                 <td>
 //                   <Button
@@ -598,6 +583,23 @@ export default Pedido;
 //               {productosList.map((prod) => (
 //                 <option key={prod.id} value={prod.id}>
 //                   {prod.nombre} - {prod.precioVenta}€
+//                 </option>
+//               ))}
+//             </select>
+//           </div>
+
+//           <div className="input-group mb-3">
+//             <label className="input-group-text">Proveedor</label>
+//             <select
+//               className="form-control bg-dark-input"
+//               value={proveedor}
+//               onChange={(e) => setProveedor(e.target.value)}
+//               required
+//             >
+//               <option value="">Seleccione...</option>
+//               {proveedoresList.map((prov) => (
+//                 <option key={prov.id} value={prov.id}>
+//                   {prov.nombre}
 //                 </option>
 //               ))}
 //             </select>
